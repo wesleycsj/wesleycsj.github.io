@@ -1,0 +1,39 @@
+html {
+  background: url('../images/cover-min.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+div.card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 5px;
+}
+
+div.columns {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+}
+
+figure#profile-img, figure > a > img {
+  display: block;
+  margin: 0 auto;
+}
+
+div.column > figure > a > img {
+  width: 3rem;
+}
+
+p.title {
+  padding-top: 1rem;
+}
+
+p.subtitle {
+  font-weight: 200;
+  padding-bottom: 1rem;
+}
+
+hr {
+  display: block;
+  width: 50%;
+  margin: 1rem auto;
+}
