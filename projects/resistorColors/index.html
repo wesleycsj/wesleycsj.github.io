@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Resistor Colors Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  <style>
+    #general {
+      display: block;
+      margin: 1rem auto;
+      border: #ccc solid 1px;
+      width: 50%;
+      padding: 1rem 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="general">
+    <h1 class="title">E24 Resistor Colors Calculator</h1>
+    <hr />
+    <div class="columns">
+      <div class="column">
+        <h2 class="subtitle">Band 1:</h2>
+        <div class="select">
+          <select id="select-color-one">
+            <option value="0" selected>Black</option>
+            <option value="1">Brown</option>
+            <option value="2">Red</option>
+            <option value="3">Orange</option>
+            <option value="4">Yellow</option>
+            <option value="5">Green</option>
+            <option value="6">Blue</option>
+            <option value="7">Violet</option>
+            <option value="8">Gray</option>
+            <option value="9">White</option>
+          </select>
+        </div>
+      </div>
+      <div class="column">
+        <h2 class="subtitle">Band 2:</h2>
+        <div class="select">
+          <select id="select-color-two">
+            <option value="0" selected>Black</option>
+            <option value="1">Brown</option>
+            <option value="2">Red</option>
+            <option value="3">Orange</option>
+            <option value="4">Yellow</option>
+            <option value="5">Green</option>
+            <option value="6">Blue</option>
+            <option value="7">Violet</option>
+            <option value="8">Gray</option>
+            <option value="9">White</option>
+          </select>
+        </div>
+      </div>
+      <div class="column">
+        <h2 class="subtitle">Multiplier:</h2>
+        <div class="select">
+          <select id="select-color-three">
+            <option value="0" selected>Black</option>
+            <option value="1">Brown</option>
+            <option value="2">Red</option>
+            <option value="3">Orange</option>
+            <option value="4">Yellow</option>
+            <option value="5">Green</option>
+            <option value="6">Blue</option>
+          </select>
+        </div>
+      </div>
+      <div class="column">
+        <h2 class="subtitle">Tolerance</h2>
+        <div class="select">
+          <select id="tolerance">
+            <option value="0">Brown</option>
+            <option value="1">Red</option>
+            <option value="2" selected>Gold</option>
+            <option value="3">Silver</option>
+            <option value="4">None</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <h1 id="ohms_value" class="subtitle is-1 has-text-centered">0 ohms +/- 5%</h1>
+  </div>
+  <script>
+    let select_color1 = document.getElementById('select-color-one')
+    let select_color2 = document.getElementById('select-color-two')
+    let select_color3 = document.getElementById('select-color-three')
+    let select_tolerance = document.getElementById('tolerance')
+    let ohms_value = document.getElementById('ohms_value')
+    let colorValue1 = 0,
+        colorValue2 = 0,
+        multiplier = Math.pow(10, 0),
+        tolerance = parseInt(select_tolerance.value),
+        toleranceValues = [1,2,5,10,20]
+    select_color1.addEventListener('change', () => {
+      colorValue1 = parseInt(select_color1.value * 10)
+      Calculate()
+    })
+    select_color2.addEventListener('change', () => {
+      colorValue2 = parseInt(select_color2.value)
+      Calculate()
+    })
+    select_color3.addEventListener('change', () => {
+      multiplier = Math.pow(10,  parseInt(select_color3.value))
+      Calculate()
+    })
+    select_tolerance.addEventListener('change', () => {
+      tolerance = parseInt(select_tolerance.value)
+      Calculate()
+    })
+    function Calculate(){
+      let value = (colorValue1 + colorValue2) * multiplier
+      let scale = ''
+      if (value > 1000 && value < 1000000) {
+        value = value / 1000
+        scale = ' K'
+      } else if (value >= 1000000) {
+        value = value / 1000000
+        scale = ' M'
+      }
+      ohms_value.innerHTML = value.toString() + scale + ' ohms +/- ' + toleranceValues[tolerance] + '%'
+    }
+  </script>
+</body>
+
+</html>
